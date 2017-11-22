@@ -39,29 +39,37 @@ for ( $i = 0; $i < count( $ids ); $i++ ) {
 </header>
 <section class="main-content">
 	<ul class="midmenu">
-
 		<?php
-        get_template_part( 'includes/class-walker-midmenu' );
-        wp_nav_menu( array(
-			'theme_location'  => 'links-midmenu',
-			'container'       => '',
-			'container_class' => '',
-			'fallback_cb'     => 'wp_page_menu',
-			'items_wrap'      => '%3$s',
-            'walker'          => new Walker_MidMenu()
-		) ); ?>
+        // Выводим midmenu, если оно создано
+        if( has_nav_menu('links-midmenu') ) {
+	        get_template_part( 'includes/class-walker-midmenu' );
+	        wp_nav_menu( array(
+		        'theme_location'  => 'links-midmenu',
+		        'container'       => '',
+		        'container_class' => '',
+		        'fallback_cb'     => 'wp_page_menu',
+		        'items_wrap'      => '%3$s',
+		        'walker'          => new Walker_MidMenu()
+	        ) );
+        }
+        ?>
 	</ul>
 
 	<ul class="mobile-midmenu">
-        <?php wp_nav_menu( array(
-        'theme_location'  => 'links-midmenu',
-        'container'       => '',
-        'container_class' => '',
-        'before'          => '<svg class="arrow-mmm" id="Layer_1" style="enable-background:new 0 0 48 48;" version="1.1" viewBox="0 0 48 48" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><polygon points="11.8,45.7 10.4,44.3 30.8,24 10.4,3.7 11.8,2.3 33.5,24  "/></g></svg>',
-        'fallback_cb'     => 'wp_page_menu',
-        'items_wrap'      => '%3$s',
-        'walker'          => new Walker_Nav_Menu()
-        ) ); ?>
+        <?php
+        // Выводим midmenu, если оно создано
+        if( has_nav_menu('links-midmenu') ) {
+	        wp_nav_menu( array(
+		        'theme_location'  => 'links-midmenu',
+		        'container'       => '',
+		        'container_class' => '',
+		        'before'          => '<svg class="arrow-mmm" id="Layer_1" style="enable-background:new 0 0 48 48;" version="1.1" viewBox="0 0 48 48" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><polygon points="11.8,45.7 10.4,44.3 30.8,24 10.4,3.7 11.8,2.3 33.5,24  "/></g></svg>',
+		        'fallback_cb'     => 'wp_page_menu',
+		        'items_wrap'      => '%3$s',
+		        'walker'          => new Walker_Nav_Menu()
+	        ) );
+        }
+        ?>
 	</ul>
 
     <!-- POSTS -->

@@ -8,28 +8,32 @@
 
 </head>
 <body <?php body_class(); ?>>
-<!-- PRELOADER
-<div class="loader">
-    <div class="loader-inner"></div>
-</div>
--->
+
 <ul class="mobile-navigation">
 	<li class="close-mobilemenu">&times;</li>
-	<?php wp_nav_menu( array(
-		'theme_location'  => 'links-mobilemenu',
-		'container'       => 'div',
-		'container_class' => 'links-mobilemenu',
-		'fallback_cb'     => 'wp_page_menu',
-		'items_wrap'      => '%3$s'
-	) ); ?>
+	<?php
+    // Вывод мобильного меню
+	if( has_nav_menu('links-mobilemenu') ) {
+		wp_nav_menu( array(
+			'theme_location'  => 'links-mobilemenu',
+			'container'       => 'div',
+			'container_class' => 'links-mobilemenu',
+			'fallback_cb'     => 'wp_page_menu',
+			'items_wrap'      => '%3$s'
+		) );
+	}
+    ?>
 	<div class="social-mobilemenu">
         <li><a href="<?php echo get_theme_mod( 'youtube_link' ); ?>" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
         <li><a href="<?php echo get_theme_mod( 'instagram_link' ); ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
         <li><a href="<?php echo get_theme_mod( 'facebook_link' ); ?>" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
         <li><a href="<?php echo get_theme_mod( 'twitter_link' ); ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-		<?php pll_the_languages( array(
-			'hide_current'  => 1,
-		));?>
+        <?php
+        // Вывод переключателя языков для мобилок
+        if ( function_exists( 'pll_the_languages' ) ) {
+            pll_the_languages( array( 'hide_current'  => 1 ) );
+        }
+        ?>
 	</div>
 </ul>
 <header>
@@ -43,21 +47,28 @@
             </a>
 		</div>
 		<ul class="navigation">
-            <?php wp_nav_menu( array(
-            'theme_location'  => 'links-mobilemenu',
-            'container'       => 'div',
-            'container_class' => 'links-topmenu',
-            'fallback_cb'     => 'wp_page_menu',
-            'items_wrap'      => '%3$s'
-            ) ); ?>
+            <?php
+            if( has_nav_menu('links-topmenu') ) {
+	            wp_nav_menu( array(
+		            'theme_location'  => 'links-topmenu',
+		            'container'       => 'div',
+		            'container_class' => 'links-topmenu',
+		            'fallback_cb'     => 'wp_page_menu',
+		            'items_wrap'      => '%3$s'
+	            ) );
+            }
+            ?>
 			<div class="social-topmenu">
 				<li><a href="<?php echo get_theme_mod( 'youtube_link' ); ?>" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
 				<li><a href="<?php echo get_theme_mod( 'instagram_link' ); ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
 				<li><a href="<?php echo get_theme_mod( 'facebook_link' ); ?>" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 				<li><a href="<?php echo get_theme_mod( 'twitter_link' ); ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-				<?php pll_the_languages( array(
-                    'hide_current'  => 1,
-                ));?>
+                <?php
+				// Вывод переключателя языков для десктопов
+				if ( function_exists( 'pll_the_languages' ) ) {
+					pll_the_languages( array( 'hide_current'  => 1 ) );
+				}
+				?>
 			</div>
 		</ul>
 		<a href="#" class="hamburger">

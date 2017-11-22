@@ -1,4 +1,5 @@
 <?php
+add_action( 'wp_enqueue_scripts', 'tzipi_scripts' );
 function tzipi_scripts() {
 	wp_enqueue_style( 'style', get_template_directory_uri() .'/style.css' );
 	wp_enqueue_style( 'main', get_template_directory_uri() .'/css/main.css' );
@@ -19,8 +20,8 @@ function tzipi_scripts() {
 	wp_enqueue_script( 'small-scripts', get_template_directory_uri() .'/js/common.js' );
 	wp_enqueue_script( 'lity', get_template_directory_uri() .'/libs/lity/lity.min.js' );
 }
-add_action( 'wp_enqueue_scripts', 'tzipi_scripts' );
 
+add_action( 'after_setup_theme', 'tzipi_setup' );
 function tzipi_setup() {
 	add_theme_support( 'menus' );
 	add_theme_support( 'post-thumbnails' );
@@ -38,12 +39,12 @@ function tzipi_setup() {
 	register_nav_menu( 'links-footermenu', 'Footer Menu' );
 	register_nav_menu( 'links-midmenu', 'Mid Menu' );
 }
-add_action( 'after_setup_theme', 'tzipi_setup' );
 
 add_filter( 'excerpt_more', function( $more ) {
 	return '';
 });
 
+add_action( 'customize_register', 'tzipi_customizer' );
 function tzipi_customizer( $wp_customize ) {
 	$wp_customize->add_section( 'social_links', array(
 		'title'    => __( 'Social links', 'tzipi' ),
@@ -110,10 +111,9 @@ function tzipi_customizer( $wp_customize ) {
 		'settings'   => 'whatsapp_link'
 	));
 }
-add_action( 'customize_register', 'tzipi_customizer' );
 
+add_action( 'widgets_init', 'tzipi_register_wp_sidebars' );
 function tzipi_register_wp_sidebars() {
-
 	/* В боковой колонке - первый сайдбар */
 	register_sidebar(
 		array(
@@ -127,10 +127,8 @@ function tzipi_register_wp_sidebars() {
 	);
 }
 
-add_action( 'widgets_init', 'tzipi_register_wp_sidebars' );
-
+add_filter( 'wp_calculate_image_sizes', 'tzipi_image_sizes_attr', 10 , 2 );
 function tzipi_image_sizes_attr( $sizes, $size ) {
 	$sizes = '(max-width: 740px) 740px';
 	return $sizes;
 }
-add_filter( 'wp_calculate_image_sizes', 'tzipi_image_sizes_attr', 10 , 2 );
