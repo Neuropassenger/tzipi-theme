@@ -2,7 +2,7 @@
 
 </header>
 <section class="post-main-content">
-	<article class="post-article">
+	<article class="post-article <?php post_class(); ?>">
 
 		<?php if ( have_posts() ) : ?>
 			<?php while ( have_posts() ) : the_post(); ?>

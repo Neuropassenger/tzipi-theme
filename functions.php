@@ -2,7 +2,6 @@
 add_action( 'wp_enqueue_scripts', 'tzipi_scripts' );
 function tzipi_scripts() {
 	wp_enqueue_style( 'style', get_template_directory_uri() .'/style.css' );
-	wp_enqueue_style( 'main', get_template_directory_uri() .'/css/main.css' );
 	wp_enqueue_style( 'normalize', get_template_directory_uri() .'/css/normalize.css' );
 	wp_enqueue_style( 'reset', get_template_directory_uri() .'/css/reset.css' );
 	wp_enqueue_style( 'fontawesome', get_template_directory_uri() .'/libs/fontawesome/font-awesome.min.css' );
@@ -24,6 +23,9 @@ function tzipi_scripts() {
 add_action( 'after_setup_theme', 'tzipi_setup' );
 function tzipi_setup() {
 	add_theme_support( 'menus' );
+	add_theme_support( 'title-tag' );
+	add_theme_support( 'menus' );
+	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array(
 		'comment-form',
@@ -38,6 +40,8 @@ function tzipi_setup() {
 	register_nav_menu( 'links-mobilemenu', 'Mobile Menu' );
 	register_nav_menu( 'links-footermenu', 'Footer Menu' );
 	register_nav_menu( 'links-midmenu', 'Mid Menu' );
+
+	if ( ! isset( $content_width ) ) $content_width = 900;
 }
 
 add_filter( 'excerpt_more', function( $more ) {
@@ -52,7 +56,8 @@ function tzipi_customizer( $wp_customize ) {
 	));
 
 	$wp_customize->add_setting( 'youtube_link', array(
-		'default' => 'https://'
+		'default'           => 'https://',
+		'sanitize_callback' => 'esc_url',
 	));
 
 	$wp_customize->add_control( 'youtube_link', array(
@@ -62,7 +67,8 @@ function tzipi_customizer( $wp_customize ) {
 	));
 
 	$wp_customize->add_setting( 'instagram_link', array(
-		'default' => 'https://'
+		'default'           => 'https://',
+		'sanitize_callback' => 'esc_url',
 	));
 
 	$wp_customize->add_control( 'instagram_link', array(
@@ -72,7 +78,8 @@ function tzipi_customizer( $wp_customize ) {
 	));
 
 	$wp_customize->add_setting( 'facebook_link', array(
-		'default' => 'https://'
+		'default'           => 'https://',
+		'sanitize_callback' => 'esc_url',
 	));
 
 	$wp_customize->add_control( 'facebook_link', array(
@@ -82,7 +89,8 @@ function tzipi_customizer( $wp_customize ) {
 	));
 
 	$wp_customize->add_setting( 'pinterest_link', array(
-		'default' => 'https://'
+		'default'           => 'https://',
+		'sanitize_callback' => 'esc_url',
 	));
 
 	$wp_customize->add_control( 'pinterest_link', array(
@@ -92,7 +100,8 @@ function tzipi_customizer( $wp_customize ) {
 	));
 
 	$wp_customize->add_setting( 'twitter_link', array(
-		'default' => 'https://'
+		'default'           => 'https://',
+		'sanitize_callback' => 'esc_url',
 	));
 
 	$wp_customize->add_control( 'twitter_link', array(
@@ -102,7 +111,8 @@ function tzipi_customizer( $wp_customize ) {
 	));
 
 	$wp_customize->add_setting( 'whatsapp_link', array(
-		'default' => 'https://'
+		'default'           => 'https://',
+		'sanitize_callback' => 'esc_url',
 	));
 
 	$wp_customize->add_control( 'whatsapp_link', array(
